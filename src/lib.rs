@@ -4,7 +4,7 @@ extern crate serde_derive;
 
 /// A simple point 3D point
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
-pub struct Point { x: f32, y: f32, z: f32 }
+pub struct Point { pub x: f32, pub y: f32, pub z: f32 }
 
 impl Point {
     pub fn new(x: f32, y: f32, z: f32) -> Point {
@@ -13,7 +13,7 @@ impl Point {
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
-pub struct LineSegment {p1: Point, p2: Point}
+pub struct LineSegment {pub p1: Point, pub p2: Point}
 
 impl LineSegment {
     pub fn new(p1: Point, p2: Point) -> LineSegment {
@@ -22,6 +22,17 @@ impl LineSegment {
 }
 #[derive(Serialize, Deserialize)]
 pub struct Plot {
-    point: Vec<Point>,
-    lines: Vec<LineSegment>
+    pub lines: Vec<LineSegment>
+}
+
+impl Plot {
+    pub fn new() -> Plot {
+        Plot {
+            lines: Vec::new()
+        }
+    }
+
+    pub fn add_line(&mut self, l: LineSegment) {
+        self.lines.push(l);
+    }
 }
